@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\authLoginController;
+use App\Http\Controllers\task\taskController;
 use App\Http\Controllers\user\userController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,15 +26,31 @@ Route :: get('login',[authLoginController :: class , 'login']);
 Route :: post('DOLogin',[authLoginController :: class , 'doLogin']);
 Route :: get('logout',[authLoginController :: class , 'Logout']);
 #########################
-// user routes
+
+
+// User Routes
 Route::resource('Users',userController::class);
 
 /*
-   /Users        (GET)       >>>   Route::get('Blogs',[blogController :: class , 'index']);
-   /Users/create (GET)       >>>   Route::get('Blogs/create',[blogController :: class , 'create']);
-   /Users        (POST)      >>>   Route::post('Blogs',[blogController :: class , 'store']);
-   /Users/{id}   (GET)       >>>   Route::get('Blogs/{id}',[blogController :: class , 'show']);
-   /Users/{id}/edit (GET)    >>>   Route::get('Blogs/{id}/edit',[blogController :: class , 'edit']);
-   /Users/{id}   (PUT)       >>>   Route::put('Blogs/{id}',[blogController :: class , 'update']);
-   /Users/{id}   (DELETE)    >>>   Route::delete('Blogs/{id}',[blogController :: class , 'destroy']);
+   /Users        (GET)       >>>   Route::get('Users',[blogController :: class , 'index']);
+   /Users/create (GET)       >>>   Route::get('Users/create',[blogController :: class , 'create']);
+   /Users        (POST)      >>>   Route::post('Users',[blogController :: class , 'store']);
+   /Users/{id}   (GET)       >>>   Route::get('Users/{id}',[blogController :: class , 'show']);
+   /Users/{id}/edit (GET)    >>>   Route::get('Users/{id}/edit',[blogController :: class , 'edit']);
+   /Users/{id}   (PUT)       >>>   Route::put('Users/{id}',[blogController :: class , 'update']);
+   /Users/{id}   (DELETE)    >>>   Route::delete('Users/{id}',[blogController :: class , 'destroy']);
+*/
+
+
+// Task Routes
+Route::resource('Tasks',taskController::class);
+
+/*
+   /Tasks        (GET)       >>>   Route::get('Tasks',[blogController :: class , 'index']);
+   /Tasks/create (GET)       >>>   Route::get('Tasks/create',[blogController :: class , 'create']);
+   /Tasks        (POST)      >>>   Route::post('Tasks',[blogController :: class , 'store']);
+   /Tasks/{id}   (GET)       >>>   Route::get('Tasks/{id}',[blogController :: class , 'show']);
+   /Tasks/{id}/edit (GET)    >>>   Route::get('Tasks/{id}/edit',[blogController :: class , 'edit']);
+   /Tasks/{id}   (PUT)       >>>   Route::put('Tasks/{id}',[blogController :: class , 'update']);
+   /Tasks/{id}   (DELETE)    >>>   Route::delete('Tasks/{id}',[blogController :: class , 'destroy']);
 */

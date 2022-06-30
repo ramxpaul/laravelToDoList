@@ -29,10 +29,9 @@
         @include('messages')
 
 
-        <form action="<?php echo url('Users'); ?>" method="post" enctype="multipart/form-data">
+        <form action="{{ url('Users/'.$data->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-
             <div class="form-group">
                 <label for="exampleInputName">User Name</label>
                 <input type="text" class="form-control" id="exampleInputName" aria-describedby="" name="name"

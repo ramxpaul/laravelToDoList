@@ -35,10 +35,10 @@
 
 
         <div class="page-header">
-            <h1> </h1>
+            <h1>{{ $title }}</h1>
             <br>
 
-            {{  'Welcome , '.auth()->user()->name }}
+            {{ 'Welcome , ' . auth()->user()->name }}
             <br>
 
             @include('messages')
@@ -46,7 +46,8 @@
         </div>
         <div class="mb-4">
             <a href="{{ url('Users/create') }}" class='btn btn-primary m-r-1em'>+ Account</a>
-             <a href="{{ url('logout') }}" class='btn btn-primary m-r-1em'>Logout</a>
+            <a href="{{ url('Tasks') }}" class='btn btn-primary m-r-1em'>Tasks List</a>
+            <a href="{{ url('logout') }}" class='btn btn-primary m-r-1em'>Logout</a>
         </div>
         <br>
 
@@ -70,8 +71,10 @@
                     <td><img src="{{ url('images/users/' . $user->image) }}" width="80px" height="80px"></td>
 
                     <td>
-                        <a href='' data-toggle="modal" data-target="#modal_single_del{{ $user->id }}" class='btn btn-danger m-r-1em'>Remove Row</a>
-                        <a href="{{ url('Users/'. $user->id.'/edit') }}" class='btn btn-primary m-r-1em'>Update Row</a>
+                        <a href='' data-toggle="modal" data-target="#modal_single_del{{ $user->id }}"
+                            class='btn btn-danger m-r-1em'>Remove Row</a>
+                        <a href="{{ url('Users/' . $user->id . '/edit') }}" class='btn btn-primary m-r-1em'>Update
+                            Row</a>
                     </td>
                 </tr>
 
@@ -87,12 +90,13 @@
                             </div>
 
                             <div class="modal-body">
-                                Are You Sure That You Want To Remove User : {{ $user->name }}  !!!!?
+                                Are You Sure That You Want To Remove User : {{ $user->name }} !!!!?
                             </div>
                             <div class="modal-footer">
                                 <form action="{{ url('Users/' . $user->id) }}" method="post">
 
                                     @method('delete')
+                                    @method('put')
                                     @csrf
 
                                     <input type="hidden" name="id" value="{{ $user->id }}">

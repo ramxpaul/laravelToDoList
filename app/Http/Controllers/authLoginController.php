@@ -22,10 +22,10 @@ class authLoginController extends Controller
 
          if(auth()->attempt($data)){
 
-            return redirect(url('Users'));
+            return redirect(url('Tasks'));
          }else{
 
-            session()->flash('Message-error', "Invalid Credentials");
+            session()->flash('Message-error', "Error : Invalid Email or Password");
 
              return back();
 

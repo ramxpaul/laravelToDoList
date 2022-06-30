@@ -15,18 +15,18 @@ class userController extends Controller
      */
 
 
-     ##### Auth Check ######
-     function __construct()
+    ##### Auth Check ######
+    function __construct()
     {
-          $this->middleware('loginCheck',['except' => ['create','store']]);
+        $this->middleware('loginCheck', ['except' => ['create', 'store']]);
     }
-     #######################################
+    #######################################
 
     public function index()
     {
         // Select query
         $data = DB::table('users')->get();
-        return view('users.index', ['data' => $data]);
+        return view('users.index', ['title' => "List Users.",'data' => $data]);
     }
 
     /**
@@ -97,7 +97,7 @@ class userController extends Controller
     {
         //
         $data =   DB::table('users')->find($id);
-        return view('users.edit', ["title" => "Edit Blog.", 'data' => $data]);
+        return view('users.edit', ['data' => $data]);
     }
 
     /**
@@ -110,13 +110,35 @@ class userController extends Controller
     public function update(Request $request, $id)
     {
         // Validating Data
+        // dd($request);
         $data = $this->validate($request, [
             'name' => 'required|max:60',
             'email' => 'required|email',
-            'image' => 'required|image|mimes:png,jpg,jpeg,gift,svg,wepb|max:2048',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg,gift,svg,wepb|max:2048',
         ]);
+
+        #### Fetching Old Image ####
+        $getUser = DB::table('users')->find($id);
+        ########################################
+        // Image Update
+        if ($request->has('image')) {
+            $imageName = time() . uniqid() . '.' . $request->image->extension();
+            $request->image->move(public_path('images/users'), $imageName);
+            $data['image'] = $imageName;
+
+
+            // Deleting Old Image
+            if (file_exists(public_path('images/users/' . $getUser->image))) {
+                unlink(public_path('images/users/' . $getUser->image));
+            }
+        } else {
+            $data['image'] = $getUser->image;
+        }
+
+        #### Changing Password #####
+
+        #########################################
         // Update Operation
-        dd($request->has('image'));
         $op = DB::table('users')->where('id', $id)->update($data);
 
         if ($op) {
