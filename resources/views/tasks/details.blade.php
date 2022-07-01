@@ -45,7 +45,7 @@
 
         </div>
 
-        <a href="{{ url('Tasks') }}" class='btn btn-primary m-r-1em'>List Blogs</a>       <a href="{{ url('Tasks/create') }}" class='btn btn-primary m-r-1em'>+ Add Task</a> <a href="{{ url('logout') }}"
+        <a href="{{ url('Tasks') }}" class='btn btn-primary m-r-1em'>List Tasks</a>       <a href="{{ url('Tasks/create') }}" class='btn btn-primary m-r-1em'>+ Add Task</a> <a href="{{ url('logout') }}"
             class='btn btn-primary m-r-1em'>Logout</a>
 
         <br>

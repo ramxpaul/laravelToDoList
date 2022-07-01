@@ -24,7 +24,7 @@ class taskController extends Controller
      */
     public function index()
     {
-        //
+        #### Fetching Tasks Data #####
         $id =  auth()->user()->id;
         $data = DB::table('task')
             ->join('users', 'task.user_id', '=', 'users.id')
@@ -42,7 +42,7 @@ class taskController extends Controller
      */
     public function create()
     {
-        //
+        ##### Viewing Create Page ######
         return view('tasks.create');
     }
 
@@ -54,7 +54,7 @@ class taskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ##### Assign Data Validations #####
         $data =   $this->validate($request, [
             "title"    => "required | min:10 | max : 150",
             "content"  => "required|min:30 | max:15000",
@@ -95,7 +95,7 @@ class taskController extends Controller
      */
     public function show($id)
     {
-        //
+        ##### Fetching Task Information ######
         $data = DB::table('task')
             ->join('users', 'task.user_id', '=', 'users.id')
             ->select('task.*', 'users.name', 'users.image as userImage')
@@ -131,7 +131,6 @@ class taskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
             $data = $this->validate($request, [
             'title' => 'required|max:60',
             'content' => 'required|min:30 | max:15000',
@@ -145,14 +144,14 @@ class taskController extends Controller
         ########################################
         $data['sdate']=strtotime($data['sdate']);
         $data['edate']=strtotime($data['edate']);
-        // Image Update
+        ##### Image Update #####
         if ($request->has('image')) {
             $imageName = time() . uniqid() . '.' . $request->image->extension();
             $request->image->move(public_path('images/tasks'), $imageName);
             $data['image'] = $imageName;
 
 
-            // Deleting Old Image
+        ##### Deleting Old Image ######
             if (file_exists(public_path('images/tasks/' . $getTask->image))) {
                 unlink(public_path('images/tasks/' . $getTask->image));
             }
@@ -164,7 +163,7 @@ class taskController extends Controller
             $message = "Task Updated Successfully";
             session()->flash('Message-success', $message);
         } else {
-            $message = "Error : error occurred while updateing";
+            $message = "Error : error occurred while updating";
             session()->flash('Message-error', $message);
         }
 
@@ -179,7 +178,6 @@ class taskController extends Controller
      */
     public function destroy($id)
     {
-
         ### Fetch Row Data
         $data = DB::table('task')->find($id);
         ### Delete Operation

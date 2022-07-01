@@ -42,9 +42,17 @@ Route::resource('Users',userController::class);
 */
 
 
-// Task Routes
-Route::resource('Tasks',taskController::class);
+######## Task Routes ###########
+Route::get('Tasks',[taskController :: class , 'index']);
+Route::get('Tasks/create',[taskController :: class , 'create']);
+Route::post('Tasks',[taskController :: class , 'store']);
+Route::get('Tasks/{id}',[taskController :: class , 'show']);
+Route::get('Tasks/{id}/edit',[taskController :: class , 'edit']);
+Route::put('Tasks/{id}',[taskController :: class , 'update']);
+Route::delete('Tasks/{id}',[taskController :: class , 'destroy'])->middleware('dateCheck');
+#############################################################################################
 
+// Route::resource('Tasks',taskController::class);
 /*
    /Tasks        (GET)       >>>   Route::get('Tasks',[blogController :: class , 'index']);
    /Tasks/create (GET)       >>>   Route::get('Tasks/create',[blogController :: class , 'create']);
